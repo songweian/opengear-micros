@@ -1,0 +1,2 @@
+[default.databases.sqlite_logs]
+url = "/Users/swa-c/code/opengear-micros/notification/target/db.sqlite"

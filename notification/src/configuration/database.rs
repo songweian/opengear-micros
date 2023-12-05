@@ -1,15 +1,13 @@
 use rocket::Rocket;
-use rocket_db_pools::Database;
 use rocket_db_pools::sqlx::{self, Acquire, Row};
+use rocket_db_pools::Database;
 
 #[derive(Database)]
 #[database("sqlite_logs")]
 pub struct DBPool(sqlx::SqlitePool);
 
-
 async fn test() {
     let x = Rocket::build();
-    ;
     let xb = DBPool::fetch(&x);
 
     let mut co = match xb.unwrap().try_acquire() {
@@ -17,9 +15,7 @@ async fn test() {
             println!("none");
             return;
         }
-        Some(sqlx) => {
-            sqlx
-        }
+        Some(sqlx) => sqlx,
     };
     let xoo = co.acquire().await.unwrap();
     let row = sqlx::query("SELECT content FROM template WHERE code = ?")

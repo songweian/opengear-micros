@@ -15,7 +15,9 @@ mod feishubot;
 mod id_generator;
 
 pub trait SendMessage {
-    fn send<'a>(send_task: InnerSendTask) -> Result<(), &'a str> where Self: Sized;
+    fn send<'a>(send_task: InnerSendTask) -> Result<(), &'a str>
+    where
+        Self: Sized;
 }
 
 pub trait QuerySendStatus {

@@ -27,7 +27,6 @@ impl QuerySendStatus for FeishuBotSender {
     }
 }
 
-
 impl QuerySendTask for FeishuBotSender {
     fn query_send_task(task_id: &str) -> Result<(), Box<dyn Error>> {
         Ok(())

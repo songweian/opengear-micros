@@ -1,5 +1,5 @@
-use rocket::Route;
 use rocket::routes;
+use rocket::Route;
 
 pub mod hello_world;
 pub mod send;
@@ -10,4 +10,3 @@ pub fn config() -> Vec<(&'static str, Vec<Route>)> {
     routes.push(("/", routes![send::single_template_send]));
     routes
 }
-

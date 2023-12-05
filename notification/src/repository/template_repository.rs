@@ -7,12 +7,9 @@ pub struct TemplateRepository<'a> {
     pub db: &'a DBPool,
 }
 
-
 impl TemplateRepository<'_> {
     pub fn from_connection(p0: &DBPool) -> TemplateRepository {
-        TemplateRepository {
-            db: p0,
-        }
+        TemplateRepository { db: p0 }
     }
     pub async fn get_template_content(&self, template_code: &str) -> Option<String> {
         let mut c = self.db.try_acquire().unwrap();
@@ -33,4 +30,3 @@ impl TemplateRepository<'_> {
         }
     }
 }
-

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
-use rocket::*;
 use rocket::serde::json::Json;
+use rocket::*;
 use tokio::task::spawn_blocking;
 
 use crate::configuration::DBPool;
@@ -9,7 +9,10 @@ use crate::models::types::{BatchTaskInfo, SendTaskRequest};
 use crate::service::CompositedSender;
 
 #[post("/send", data = "<task>")]
-pub async fn single_template_send<'a>(task: Json<SendTaskRequest<'_>>, mut p: &DBPool) -> Json<BatchTaskInfo<'a>> {
+pub async fn single_template_send<'a>(
+    task: Json<SendTaskRequest<'_>>,
+    mut p: &DBPool,
+) -> Json<BatchTaskInfo<'a>> {
     println!("Task batch_id: {}", task.batch_id);
     println!("Task template code: {}", task.template_code);
     for (k, v) in task.template_params.iter() {
@@ -27,5 +30,7 @@ pub async fn single_template_send<'a>(task: Json<SendTaskRequest<'_>>, mut p: &D
             task_id_map: HashMap::new(),
         };
         Json(info)
-    }).await.unwrap()
+    })
+    .await
+    .unwrap()
 }

@@ -23,7 +23,9 @@ impl CompositedSender<'_> {
         let template_type = TemplateType::from_template_code(&template_code);
 
         let template_repository = TemplateRepository::from_connection(&self.db);
-        let template = template_repository.get_template_content(&template_code).await
+        let template = template_repository
+            .get_template_content(&template_code)
+            .await
             .expect("get template error");
         println!("template content: {}", template);
 

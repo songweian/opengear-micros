@@ -31,7 +31,9 @@ pub struct BatchTaskInfo<'a> {
 }
 
 impl InnerSendTask<'_> {
-    pub(crate) fn from_send_task_request<'a>(p0: &'a Json<SendTaskRequest>) -> Result<InnerSendTask<'a>, Box<dyn Error>> {
+    pub(crate) fn from_send_task_request<'a>(
+        p0: &'a Json<SendTaskRequest>,
+    ) -> Result<InnerSendTask<'a>, Box<dyn Error>> {
         let batch_id = p0.batch_id;
         let template_type = TemplateType::from_template_code(&p0.template_code);
         let mut template_params = HashMap::new();

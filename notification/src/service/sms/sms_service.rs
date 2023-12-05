@@ -29,7 +29,10 @@ pub fn send(template_code: &str, template_params: HashMap<&str, &str>) {
 
     let sms_template = crate::models::types::SmsTemplate {
         template_code: String::from(template_code),
-        template_params: template_params.iter().map(|(k, v)| (String::from(*k), String::from(*v))).collect(),
+        template_params: template_params
+            .iter()
+            .map(|(k, v)| (String::from(*k), String::from(*v)))
+            .collect(),
     };
     inner_send(&sms_template.template_code, sms_template.template_params);
 }

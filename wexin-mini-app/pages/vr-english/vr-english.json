@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "vr-english": "../../components/vr-english/vr-english"
+  },
+  "disableScroll": true
+}

@@ -54,6 +54,7 @@ pub struct SmsTemplate {
     pub template_params: HashMap<String, String>,
 }
 
+#[derive(Hash, PartialEq,Eq)]
 pub enum TemplateType {
     SmsTemplate,
     EmailTemplate,

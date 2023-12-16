@@ -1,21 +1,22 @@
 use std::collections::HashMap;
+use crate::configuration::DBPool;
 
 use crate::models::types::InnerSendTask;
 use crate::service::SendMessage;
 
-pub struct SmsSender {
-    pub db: String,
+pub struct SmsSender<'a> {
+    pub db: &'a DBPool,
 }
 
-impl SmsSender {
-    pub fn new() -> Self {
+impl SmsSender<'_> {
+    pub fn new(db: &DBPool,) -> Self {
         SmsSender {
-            db: String::from("sms"),
+            db: db,
         }
     }
 }
 
-impl SendMessage for SmsSender {
+impl SendMessage for SmsSender<'_> {
     fn send<'a>(send_task: InnerSendTask) -> Result<(), &'a str> {
         Ok(())
     }

@@ -7,16 +7,22 @@ use crate::models::types::{InnerSendTask, SendTaskRequest, TemplateType};
 use crate::repository::TemplateRepository;
 use crate::service::{SendMessage, SmsSender};
 
-pub struct CompositedSender<'a> {
-    pub db: &'a DBPool,
+pub struct CompositedSender {
+    pub db: &'static DBPool,
     pub typed_sender_map: HashMap<TemplateType, Box<dyn SendMessage>>,
 }
 
-unsafe impl Send for CompositedSender<'_> {}
+unsafe impl Send for CompositedSender {}
 
-unsafe impl Sync for CompositedSender<'_> {}
+unsafe impl Sync for CompositedSender {}
 
-impl CompositedSender<'_> {
+impl CompositedSender {
+    pub fn singleton(db: &DBPool, typed_sender_map: HashMap<TemplateType, Box<dyn SendMessage>>) -> Self {
+        CompositedSender {
+            db,
+            typed_sender_map,
+        }
+    }
     pub async fn send(&self, send_task_request: Json<SendTaskRequest<'_>>) {
         println!("send service task");
         let template_code = send_task_request.template_code;
